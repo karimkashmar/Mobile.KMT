@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Mobile.KMT.ViewModels;
+using Mobile.KMT.Views;
 
 namespace Mobile.KMT;
 
