@@ -59,7 +59,6 @@
 	  <Folder Include="Models\" />
 	  <Folder Include="Services\Interfaces\" />
 	  <Folder Include="Services\Implementations\" />
-	  <Folder Include="Views\" />
 	</ItemGroup>
 
 </Project>

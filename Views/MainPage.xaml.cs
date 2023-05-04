@@ -1,6 +1,6 @@
 ﻿using Mobile.KMT.ViewModels;
 
-namespace Mobile.KMT;
+namespace Mobile.KMT.Views;
 
 public partial class MainPage : ContentPage
 {
