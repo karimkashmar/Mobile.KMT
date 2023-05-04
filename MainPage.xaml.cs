@@ -1,12 +1,17 @@
-﻿namespace Mobile.KMT;
+﻿using Mobile.KMT.ViewModels;
+
+namespace Mobile.KMT;
 
 public partial class MainPage : ContentPage
 {
-	public MainPage()
-	{
-		InitializeComponent();
-	}
+    private MainPageViewModel _viewModel;
 
-	
+
+    public MainPage(MainPageViewModel viewModel)
+    {
+        InitializeComponent();
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
+    }
+
 }
-

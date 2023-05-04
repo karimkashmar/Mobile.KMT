@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Mobile.KMT.ViewModels;
 
 namespace Mobile.KMT;
 
@@ -15,8 +16,12 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
+
+        builder.Services.AddSingleton<BaseViewModel>();
+        builder.Services.AddSingleton<MainPage>();
+        builder.Services.AddSingleton<MainPageViewModel>();
 #if DEBUG
-		builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
 
 		return builder.Build();
