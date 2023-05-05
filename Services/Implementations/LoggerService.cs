@@ -2,6 +2,7 @@
 using Mobile.KMT.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,11 +21,16 @@ namespace Mobile.KMT.Services.Implementations
         {
             try
             {
+                var callingMethod = new StackTrace(skipFrames: 5).GetFrame(0).GetMethod();
+                var callingClassName = callingMethod.DeclaringType.Name;
+                var callingMethodName = callingMethod.Name;
+
+
                 string currentDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
                 string logFileName = $"app_logs_{currentDate}.txt";
                 string logFilePath = Path.Combine(LogDirectory, logFileName);
 
-                var logEntry = $"INFO\t{DateTime.UtcNow}: {message}{Environment.NewLine}";
+                var logEntry = ToLog("INFO", message, callingClassName, callingMethodName);
                 await File.AppendAllTextAsync(logFilePath, logEntry);
             }
             catch (Exception ex)
@@ -37,11 +43,15 @@ namespace Mobile.KMT.Services.Implementations
         {
             try
             {
+                var callingMethod = new StackTrace(skipFrames: 5).GetFrame(0).GetMethod();
+                var callingClassName = callingMethod.DeclaringType.Name;
+                var callingMethodName = callingMethod.Name;
+
                 string currentDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
                 string logFileName = $"app_logs_{currentDate}.txt";
                 string logFilePath = Path.Combine(LogDirectory, logFileName);
 
-                var logEntry = $"WARN\t{DateTime.UtcNow}: {message}{Environment.NewLine}";
+                var logEntry = ToLog("WARN", message, callingClassName, callingMethodName);
                 await File.AppendAllTextAsync(logFilePath, logEntry);
             }
             catch (Exception ex)
@@ -56,17 +66,26 @@ namespace Mobile.KMT.Services.Implementations
             {
                 await App.ShowWarning(message);
 
+                var callingMethod = new StackTrace(skipFrames: 5).GetFrame(0).GetMethod();
+                var callingClassName = callingMethod.DeclaringType.Name;
+                var callingMethodName = callingMethod.Name;
+
                 string currentDate = DateTime.UtcNow.ToString("yyyy-MM-dd");
                 string logFileName = $"app_logs_{currentDate}.txt";
                 string logFilePath = Path.Combine(LogDirectory, logFileName);
 
-                var logEntry = $"ERROR\t{DateTime.UtcNow}: {message}{Environment.NewLine}";
+                var logEntry = ToLog("ERROR", message, callingClassName, callingMethodName);
                 await File.AppendAllTextAsync(logFilePath, logEntry);
             }
             catch (Exception ex)
             {
                 await App.ShowWarning(ex.Message);
             }
+        }
+
+        public string ToLog(string logType, string message, string callingClassName, string callingMethodName)
+        {
+            return $"{logType}\t{DateTime.UtcNow} - {callingClassName} - {callingMethodName}: {message}{Environment.NewLine}";
         }
     }
 }

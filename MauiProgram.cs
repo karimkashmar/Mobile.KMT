@@ -27,10 +27,6 @@ public static class MauiProgram
 
         builder.Services.AddSingleton(typeof(ILoggerService), typeof(LoggerService));
 
-#if DEBUG
-        builder.Logging.AddDebug();
-#endif
-
         return builder.Build();
     }
 }
