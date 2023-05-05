@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Extensions.Logging;
+using Mobile.KMT.Services.Interfaces;
 using Mobile.KMT.Views;
 using System;
 using System.Collections.Generic;
@@ -11,9 +13,11 @@ namespace Mobile.KMT.ViewModels
 {
     public partial class LoginPageViewModel : BaseViewModel
     {
-        public LoginPageViewModel()
+        private readonly ILoggerService _logger;
+        public LoginPageViewModel(ILoggerService logger)
         {
             Title = "Login Page";
+            _logger = logger;
         }
 
         [ObservableProperty]
@@ -24,8 +28,16 @@ namespace Mobile.KMT.ViewModels
         [RelayCommand]
         public async Task Login()
         {
-            await App.ShowInfo($"{EmailOrUsername} - {Password}");
-            //await Shell.Current.GoToAsync($"{nameof(LoginPage)}", true);
+            try
+            {
+                await _logger.LogInformation($"{EmailOrUsername} - {Password}");
+                //await App.ShowInfo($"{EmailOrUsername} - {Password}");
+                //await Shell.Current.GoToAsync($"{nameof(LoginPage)}", true);
+            }
+            catch (Exception ex)
+            {
+                await _logger.LogError($"{ex.Message} - {ex.StackTrace} - {ex.InnerException?.Message} - {ex.InnerException?.StackTrace}");
+            }
 
         }
     }

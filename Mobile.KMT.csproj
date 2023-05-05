@@ -50,6 +50,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+		<PackageReference Include="DotNet.NLog.NetCore" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 	</ItemGroup>
 
@@ -57,8 +58,6 @@
 	  <Folder Include="Messages\Responses\" />
 	  <Folder Include="Messages\Requests\" />
 	  <Folder Include="Models\" />
-	  <Folder Include="Services\Interfaces\" />
-	  <Folder Include="Services\Implementations\" />
 	</ItemGroup>
 
 	<ItemGroup>
