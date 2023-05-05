@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Mobile.KMT.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,20 @@ namespace Mobile.KMT.ViewModels
         public MainPageViewModel()
         {
             Title = "Main Page";
+        }
+
+        public async Task OnLoaded()
+        {
+            try
+            {
+                await Shell.Current.GoToAsync($"{nameof(LoginPage)}", true);
+
+            }
+            catch (Exception ex)
+            {
+
+                // Log
+            }
         }
     }
 }

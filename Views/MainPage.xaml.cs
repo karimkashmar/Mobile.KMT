@@ -14,4 +14,8 @@ public partial class MainPage : ContentPage
         BindingContext = _viewModel;
     }
 
+    private async void ContentPage_Loaded(object sender, EventArgs e)
+    {
+        await _viewModel.OnLoaded();
+    }
 }
